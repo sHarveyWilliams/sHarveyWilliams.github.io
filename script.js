@@ -48,7 +48,7 @@ function renderList() {
                     checkBox.setAttribute('class', 'checkBoxes');
 
                     if (localStorage.getItem(titleElm.innerText)) {
-                        let check = localStorage.getItem(titleElm.innerText);
+                        //let check = localStorage.getItem(titleElm.innerText);
                         checkBox.setAttribute('checked', '');
                     }
 
@@ -62,7 +62,6 @@ function renderList() {
                 }
             }
 
-            console.log('OK');
         })
         .catch(error => console.error('Error:', error))
 }
@@ -159,21 +158,23 @@ function replaceElements(listElements, arr, noteAtribute) { //вызываем �
 }
 
 function showModalWindow(listElements) {
-    const modalWindow = document.createElement('div');
-    const modalOverlay = document.createElement('div');
-    const exitModalWindow = document.createElement('div');
+    if(!document.getElementById('modal')) {
+        const modalWindow = document.createElement('div');
+        const modalOverlay = document.createElement('div');
+        const exitModalWindow = document.createElement('div');
 
-    modalWindow.setAttribute('id', 'modal');
-    modalOverlay.setAttribute('id', 'modal-overlay');
-    exitModalWindow.setAttribute('id', 'exitModal');
+        modalWindow.setAttribute('id', 'modal');
+        modalOverlay.setAttribute('id', 'modal-overlay');
+        exitModalWindow.setAttribute('id', 'clearModal');
 
-    modalWindow.appendChild(exitModalWindow);
-    document.body.appendChild(modalWindow);
-    document.body.appendChild(modalOverlay);
+        modalWindow.appendChild(exitModalWindow);
+        document.body.appendChild(modalWindow);
+        document.body.appendChild(modalOverlay);
 
-    document.getElementById('exitModal').addEventListener('click', event => exitModal(event.target, modalOverlay));
-
-    addPagination(listElements, modalWindow);
+        document.getElementById('exitModal').addEventListener('click', event => clearModal(modalWindow, modalOverlay));
+        document.getElementById('modal-overlay').addEventListener('click', event => clearModal(modalWindow, modalOverlay));
+        addPagination(listElements, modalWindow);
+    }
 }
 
 function addPagination(listElements, modalWindow) {
@@ -206,12 +207,16 @@ function generateElements(pagination, listElements, modalWindow) {
     pagination.appendChild(curs);
 
     modalWindow.appendChild(pagination);
-    arrPag[0].removeAttribute('class')
     modalItem.appendChild(arrPag[0]);
     modalWindow.appendChild(modalItem);
     document.body.appendChild(modalWindow); //в модальное окно пагинацию??????? //Добавляем
 
     document.getElementById('curs').addEventListener('click', event => showElmOnPaganation(event.target, modalWindow, arrPag, modalItem))
+}
+
+function clearLocalStorage() {
+    localStorage.clear();
+    updateList();
 }
 
 function showElmOnPaganation(event, modalWindow, arrPag, modalItem) { // алгоритм пагинации
@@ -222,7 +227,6 @@ function showElmOnPaganation(event, modalWindow, arrPag, modalItem) { // алг�
                 if (parseInt(event.innerHTML) === j) {
                     arrPag[j].removeAttribute('class'); //АВТОМАТИЧЕСКОЕ ПЕРЕМЕЩЕНИЕ ЭЛЕМЕНТОВ
                     modalItem.appendChild(arrPag[j]);
-                    console.log(arrPag[j]);
                     modalWindow.appendChild(modalItem);
                     renderList();
                 }
@@ -231,21 +235,22 @@ function showElmOnPaganation(event, modalWindow, arrPag, modalItem) { // алг�
     }
 }
 
-function exitModal(event, modalOverlay) {
-    document.body.removeChild(event.parentElement);
+function clearModal(modalWindow, modalOverlay) { //кнопка выхода
+    modalWindow.outerHTML='';
     modalOverlay.outerHTML = '';
 }
 
-function clearLocalStorage() {
-    localStorage.clear();
-    updateList();
+function clearList(listElements) {
+    listElements.innerHTML = '';
+    renderList();
+    clearLocalStorage();
 }
 
 function Init() {
     const listElements = document.getElementById('list');
     listElements.addEventListener('click', event => checkBoxListener(event.target));
     document.getElementById('btnBasic').addEventListener('click', checkAuth);
-    document.getElementById('clearBtn').addEventListener('click', clearLocalStorage);
+    document.getElementById('clearBtn').addEventListener('click', event => clearList(listElements));
     document.getElementById('sortByNameBtn').addEventListener('click', event => sortElements(event.target, listElements, 'title'));
     document.getElementById('sortByAlcoBtn').addEventListener('click', event => sortElements(event.target, listElements, 'alcohol'));
     document.getElementById('showModalWindow').addEventListener('click', event => showModalWindow(listElements));

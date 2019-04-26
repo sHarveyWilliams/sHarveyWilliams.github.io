@@ -18,6 +18,7 @@ html{
 }
 
 .itemBeer {
+	border-radius: 50px;
 	width: 300px;
 	height: 400px;
 	float: left;
