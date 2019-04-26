@@ -165,7 +165,7 @@ function showModalWindow(listElements) {
 
         modalWindow.setAttribute('id', 'modal');
         modalOverlay.setAttribute('id', 'modal-overlay');
-        exitModalWindow.setAttribute('id', 'clearModal');
+        exitModalWindow.setAttribute('id', 'exitModal');
 
         modalWindow.appendChild(exitModalWindow);
         document.body.appendChild(modalWindow);
@@ -207,7 +207,6 @@ function generateElements(pagination, listElements, modalWindow) {
     pagination.appendChild(curs);
 
     modalWindow.appendChild(pagination);
-    modalItem.appendChild(arrPag[0]);
     modalWindow.appendChild(modalItem);
     document.body.appendChild(modalWindow); //в модальное окно пагинацию??????? //Добавляем
 
