@@ -40,9 +40,8 @@ function createDOMElements(array, listElements) {
         const alcElm = document.createElement('div');
         const imageElm = document.createElement('img');
         const checkBox = document.createElement('input');
-        //console.log(array)
+
         itemBeer.setAttribute('class', 'itemBeer');
-        //itemBeer.setAttribute('id', `itemBeer${i}`);
 
         titleElm.setAttribute('class', 'title');
 
@@ -52,6 +51,8 @@ function createDOMElements(array, listElements) {
         descriptionElm.innerText = array[i]['description'];
 
         imageElm.setAttribute('src', array[i]['image_url']);
+
+        alcElm.setAttribute('class', 'alcElm');
         alcElm.innerText = array[i]['abv'];
 
         if (objListFilter[titleElm.innerText]) {
@@ -94,20 +95,43 @@ function createPagination(event, listElements, paganationBar) {
     showNumbersOfPages(paganationBar, +event.innerText);
 }
 
+function createPagArr() {
+    const pagArr = [];
+    const maxNumberPages = 30;
+    for(let i = 1 ; i<=maxNumberPages ; i++){
+        pagArr.push(i)
+    }
+    return pagArr;
+}
+
 function showNumbersOfPages(paganationBar, page) {
     let lastPage;
-
     updateUrl(page);
 
-    if (page % 10 > 7 || page % 10 === 0) { //Вопрос со страницами
+    if (page>20){
+        page=19;
+        lastPage = 31;
+    }
+
+    if (page > 6 || page % 10 > 6 || page===0) { //Вопрос со страницами
         lastPage = page + 10;
     }
 
-    if (page % 10 < 7 && page > 20) {
-        lastPage = page - 10;
+    if (page % 10 < 7 && page > 10 && page!=0) {
+        lastPage = page-10;
     }
 
-    for (page; page < lastPage; page++) {
+    console.log(page);
+
+    createNumbersInPag(page, lastPage, paganationBar)
+
+}
+
+function createNumbersInPag(page, lastPage, paganationBar) {
+    lastPage = lastPage || 10;
+    const pagArr = createPagArr();
+
+    for (pagArr[page] ; page < lastPage ; page++) {
         const numberOfPage = document.createElement('td');
 
         numberOfPage.setAttribute('class', 'numberOfPage');
@@ -131,6 +155,8 @@ function checkAuth() { //проверяем данные для аутентиф
         email.value = '';
         name.value = '';
     }
+
+    alert('Все ОК')
 }
 
 function sortABVElements(listElements) {
@@ -216,6 +242,7 @@ function showModalWindow(listElements) {
 
 function clearModal(modalWindow, modalOverlay, listElements) { //кнопка выхода
     const numberPage = getURLIdPage();
+
     modalWindow.outerHTML = '';
     modalOverlay.outerHTML = '';
     clearList(listElements);
@@ -236,13 +263,14 @@ function updateUrl(numberPage) {
 
 function getURLIdPage() {
     const url = new URL("../index.html" , window.location);
+
     return url.searchParams.get("pageID");
 }
 
 function Init() {
     const listElements = document.getElementById('list');
     const paganationBar = document.getElementById('pgnt');
-    const numberPage = getURLIdPage() || 0;
+    const numberPage = getURLIdPage() || 1;
 
     document.body.addEventListener('click', event => checkBoxListener(event.target));
     document.getElementById('btnBasic').addEventListener('click', checkAuth);
@@ -254,13 +282,8 @@ function Init() {
 
     getCheckedFromLS();
     renderList();
-    showNumbersOfPages(paganationBar, numberPage);
+    //showNumbersOfPages(paganationBar, numberPage);
+    createNumbersInPag(1, 10, paganationBar)
     updateUrl(numberPage);
 }
 
-
-// var url = new URL(window.location.href);
-// var c = url.searchParams.get("pageID");
-// console.log(c)
-// let url = window.location.protocol + "//" + window.location.host + window.location.pathname;
-//

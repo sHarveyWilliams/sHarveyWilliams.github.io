@@ -216,7 +216,7 @@ aside:hover{
 	z-index: 45;
 }
 
-.curs{
+.curs, .alcElm{
 	margin-left: 50px;
 }
 
