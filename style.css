@@ -56,7 +56,7 @@ header{
 	left: 0px;
 	width: 100%;
 	height: 50px;
-	background-color: #c36450;
+	background-color: #d0d0d0;
 	box-shadow: 0px 2px 4px rgba(44, 62, 80, 0.15);
 	z-index: 100;
 }
@@ -92,7 +92,8 @@ table:hover{
 	overflow: hidden;
 	margin-bottom: 10px;
 	text-indent: 15px;
-	background-color: #ff9981;
+	background-color: #4c4c4c;
+	color: white;
 	box-shadow: 0px 10px 15px rgba(0, 62, 80, 0.15);
 }
 
@@ -142,7 +143,7 @@ footer{
 	position: relative;
 	width: 100%;
 	height: 50px;
-	background-color: #c36450;
+	background-color: #4c4c4c;
 	z-index: 150;
 }
 
@@ -150,7 +151,7 @@ aside{
 	float: right;
 	right: -200px;
 	position: fixed;
-	background-color: darksalmon;
+	background-color: #4c4c4c;
 	z-index: 1360;
 	width: 300px;
 	height: 100%;
@@ -172,6 +173,7 @@ aside:hover{
 
 #modal{
 	position: fixed;
+	overflow: auto;
 	background-color: #f0f0f0;
 	transform: translate(-50%, -50%);
 	top: 50%;
@@ -221,4 +223,9 @@ aside:hover{
 td{
 	cursor: pointer;
 	padding: 15px;
+}
+
+.numListBtn{
+	position: relative;
+	top: 10px;
 }
