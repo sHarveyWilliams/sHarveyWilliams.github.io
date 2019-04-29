@@ -6,6 +6,7 @@ let objListFilter = {};
 
 function getData(numberPage) {
     numberPage = numberPage || 1;
+
     url = `https://api.punkapi.com/v2/beers?per_page=8&page=${numberPage}`;
 
     return fetch(url, {
@@ -28,11 +29,11 @@ function getCheckedFromLS() {
         key = localStorage.key(i);
         objListFilter[key] = localStorage.getItem(key);
     }
-    //console.log(objListFilter)
 }
 
 function createDOMElements(array, listElements) {
     listElements = listElements || document.getElementById('list');
+
     for (let i = 0; i < array.length; i++) {
         const itemBeer = document.createElement('div');
         const titleElm = document.createElement('div');
@@ -90,6 +91,7 @@ function clearList(listElements) {
 
 function createPagination(event, listElements, paganationBar) {
     paganationBar.innerHTML = '';
+
     clearList(listElements);
     renderList(parseInt(event.innerText));
     showNumbersOfPages(paganationBar, +event.innerText);
@@ -109,14 +111,14 @@ function showNumbersOfPages(paganationBar, page) {
     updateUrl(page);
 
     if (page < 5) {
-        createNumbersInPag(1, 10, paganationBar);
+        createNumbersInPag(1, 10, paganationBar, page);
     } else {
-        createNumbersInPag(page - 4, page, paganationBar);
-        createNumbersInPag(page, page + 6, paganationBar)
+        createNumbersInPag(page - 4, page, paganationBar, page);
+        createNumbersInPag(page, page + 6, paganationBar, page)
     }
 }
 
-function createNumbersInPag(page, lastPage, paganationBar) {
+function createNumbersInPag(page, lastPage, paganationBar, select) {
     const maxNumberInPag = 30;
     const pagArr = createPagArr(maxNumberInPag);
 
@@ -125,6 +127,10 @@ function createNumbersInPag(page, lastPage, paganationBar) {
 
         if (page <= 0 || page >= 30) {
             break;
+        }
+
+        if(select===page){
+            numberOfPage.style.backgroundColor='white';
         }
 
         numberOfPage.setAttribute('class', 'numberOfPage');
@@ -279,8 +285,7 @@ function Init() {
 
     getCheckedFromLS();
     renderList();
-    //showNumbersOfPages(paganationBar, numberPage);
-    createNumbersInPag(1, 10, paganationBar);
+    createNumbersInPag(numberPage, numberPage+10, paganationBar);
     updateUrl(numberPage);
 }
 
