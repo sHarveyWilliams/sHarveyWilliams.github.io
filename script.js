@@ -273,7 +273,7 @@ function getURLIdPage() {
 function Init() {
     const listElements = document.getElementById('list');
     const paganationBar = document.getElementById('pgnt');
-    const numberPage = getURLIdPage() || 1;
+    const numberPage = getURLIdPage();
 
     document.body.addEventListener('click', event => checkBoxListener(event.target));
     document.getElementById('btnBasic').addEventListener('click', checkAuth);
