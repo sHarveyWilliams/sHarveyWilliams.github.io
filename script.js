@@ -278,7 +278,7 @@ function Init() {
     document.body.addEventListener('click', event => checkBoxListener(event.target));
     document.getElementById('btnBasic').addEventListener('click', checkAuth);
     paganationBar.addEventListener('click', event => createPagination(event.target, listElements, paganationBar));
-    //document.getElementById('clearBtn').addEventListener('click', event => clearList(listElements));
+    document.getElementById('clearBtn').addEventListener('click', event => clearList(listElements));
     document.getElementById('sortByNameBtn').addEventListener('click', event => sortTitleElements(listElements, 'title'));
     document.getElementById('sortByAlcoBtn').addEventListener('click', event => sortABVElements(listElements, 'alcohol'));
     document.getElementById('showModalWindow').addEventListener('click', event => showModalWindow(listElements));
