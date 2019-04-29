@@ -105,25 +105,14 @@ function createPagArr() {
 }
 
 function showNumbersOfPages(paganationBar, page) {
-    let lastPage;
     updateUrl(page);
-
-    if (page>20){
-        page=19;
-        lastPage = 31;
+    if(page<5){
+        createNumbersInPag(1, 10, paganationBar);
     }
-
-    if (page > 6 || page % 10 > 6 || page===0) { //Вопрос со страницами
-        lastPage = page + 10;
+    else {
+        createNumbersInPag(page-4, page, paganationBar);
+        createNumbersInPag(page, page+6, paganationBar)
     }
-
-    if (page % 10 < 7 && page > 10 && page!=0) {
-        lastPage = page-10;
-    }
-
-    console.log(page);
-
-    createNumbersInPag(page, lastPage, paganationBar)
 
 }
 
@@ -134,9 +123,17 @@ function createNumbersInPag(page, lastPage, paganationBar) {
     for (pagArr[page] ; page < lastPage ; page++) {
         const numberOfPage = document.createElement('td');
 
+        if(page<=0 || page>=30){
+            break;
+        }
+
         numberOfPage.setAttribute('class', 'numberOfPage');
         numberOfPage.innerHTML = page;
         paganationBar.appendChild(numberOfPage);
+
+        if(page===pagArr[page]){
+            numberOfPage.style.backgroundColor = 'white';
+        }
 
     }
 }
@@ -283,7 +280,7 @@ function Init() {
     getCheckedFromLS();
     renderList();
     //showNumbersOfPages(paganationBar, numberPage);
-    createNumbersInPag(1, 10, paganationBar)
+    createNumbersInPag(1, 10, paganationBar);
     updateUrl(numberPage);
 }
 
