@@ -145,13 +145,13 @@ function checkAuth() { //проверяем данные для аутентиф
     const email = document.getElementById('emailInput');
     const pass = document.getElementById('passwordInput');
 
-    if (pass.value.length < 8) {
+    if (pass.value.length <= 8) {
         alert('Пароль должен быть больше 8 симоволов');
     }
     if (email.value.length === 0 || name.value.length === 0) {
         alert('Ввести все данные');
     }
-    if(pass.value.length < 8 && (email.value.length > 0 || name.value.length > 0)){
+    if(pass.value.length > 8 && (email.value.length > 0 || name.value.length > 0)){
         alert('Все ОК')
     }
 }
