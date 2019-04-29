@@ -111,7 +111,7 @@ function showNumbersOfPages(paganationBar, page) {
     updateUrl(page);
 
     if (page < 5) {
-        createNumbersInPag(1, 10, paganationBar, page);
+        createNumbersInPag(1, 11, paganationBar, page);
     } else {
         createNumbersInPag(page - 4, page, paganationBar, page);
         createNumbersInPag(page, page + 6, paganationBar, page)
