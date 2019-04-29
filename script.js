@@ -147,15 +147,13 @@ function checkAuth() { //проверяем данные для аутентиф
 
     if (pass.value.length < 8) {
         alert('Пароль должен быть больше 8 симоволов');
-        pass.value = '';
     }
-    if ((email.value.length === 0) || (name.value.length === 0)) {
+    if (email.value.length === 0 || name.value.length === 0) {
         alert('Ввести все данные');
-        email.value = '';
-        name.value = '';
     }
-
-    alert('Все ОК')
+    if(pass.value.length < 8 && (email.value.length > 0 || name.value.length > 0)){
+        alert('Все ОК')
+    }
 }
 
 function sortABVElements(listElements) {
