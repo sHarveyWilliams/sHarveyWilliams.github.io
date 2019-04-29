@@ -153,6 +153,9 @@ function checkAuth() { //проверяем данные для аутентиф
     }
     if(pass.value.length > 8 && (email.value.length > 0 || name.value.length > 0)){
         alert('Все ОК')
+        pass.value.innerHTML='';
+        email.value.innerHTML='';
+        name.value.innerHTML='';
     }
 }
 
