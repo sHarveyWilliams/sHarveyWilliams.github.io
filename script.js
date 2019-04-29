@@ -95,45 +95,41 @@ function createPagination(event, listElements, paganationBar) {
     showNumbersOfPages(paganationBar, +event.innerText);
 }
 
-function createPagArr() {
+function createPagArr(maxNumberInPag) {
     const pagArr = [];
-    const maxNumberPages = 30;
-    for(let i = 1 ; i<=maxNumberPages ; i++){
+
+    for (let i = 1; i <= maxNumberInPag; i++) {
         pagArr.push(i)
     }
     return pagArr;
 }
 
 function showNumbersOfPages(paganationBar, page) {
-    updateUrl(page);
-    if(page<5){
-        createNumbersInPag(1, 10, paganationBar);
-    }
-    else {
-        createNumbersInPag(page-4, page, paganationBar);
-        createNumbersInPag(page, page+6, paganationBar)
-    }
 
+    updateUrl(page);
+
+    if (page < 5) {
+        createNumbersInPag(1, 10, paganationBar);
+    } else {
+        createNumbersInPag(page - 4, page, paganationBar);
+        createNumbersInPag(page, page + 6, paganationBar)
+    }
 }
 
 function createNumbersInPag(page, lastPage, paganationBar) {
-    lastPage = lastPage || 10;
-    const pagArr = createPagArr();
+    const maxNumberInPag = 30;
+    const pagArr = createPagArr(maxNumberInPag);
 
-    for (pagArr[page] ; page < lastPage ; page++) {
+    for (pagArr[page]; page < lastPage; page++) {
         const numberOfPage = document.createElement('td');
 
-        if(page<=0 || page>=30){
+        if (page <= 0 || page >= 30) {
             break;
         }
 
         numberOfPage.setAttribute('class', 'numberOfPage');
         numberOfPage.innerHTML = page;
         paganationBar.appendChild(numberOfPage);
-
-        if(page===pagArr[page]){
-            numberOfPage.style.backgroundColor = 'white';
-        }
 
     }
 }
@@ -203,7 +199,6 @@ function checkBoxAction(nameElm) {
 }
 
 function findChecked() {
-    console.log(objListFilter)
     for (let i = 0; i < arrayList.length; i++) {
         if (objListFilter[arrayList[i]['name']]) {
             arrayFilterList.push(arrayList[i]);
@@ -243,23 +238,28 @@ function clearModal(modalWindow, modalOverlay, listElements) { //кнопка в
     modalWindow.outerHTML = '';
     modalOverlay.outerHTML = '';
     clearList(listElements);
-    arrayFilterList=[];
+    arrayFilterList = [];
     createDOMElements(arrayList, numberPage);
 }
 
 function updateUrl(numberPage) {
     const url = new URL(window.location.origin + "/" + "index.html");
+    if(numberPage!=1){
+        document.title=`Beer Page ${numberPage}`;
+    }
+    else{
+        document.title='Beer';
+    }
 
     if (history.pushState) {
         history.pushState(null, null, url + `?pageID=${numberPage}`);
-    }
-    else{
+    } else {
         new Error('Error');
     }
 }
 
 function getURLIdPage() {
-    const url = new URL("../index.html" , window.location);
+    const url = new URL("../index.html", window.location);
 
     return url.searchParams.get("pageID");
 }
