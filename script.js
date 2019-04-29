@@ -273,7 +273,7 @@ function getURLIdPage() {
 function Init() {
     const listElements = document.getElementById('list');
     const paganationBar = document.getElementById('pgnt');
-    const numberPage = getURLIdPage();
+    const numberPage = getURLIdPage() || 1;
 
     document.body.addEventListener('click', event => checkBoxListener(event.target));
     document.getElementById('btnBasic').addEventListener('click', checkAuth);
@@ -285,8 +285,7 @@ function Init() {
 
     getCheckedFromLS();
     renderList();
-    console.log(numberPage);
-    createNumbersInPag(numberPage, numberPage+10, paganationBar);
+    createNumbersInPag(1, 10, paganationBar);
     updateUrl(numberPage);
 }
 
