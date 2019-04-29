@@ -285,6 +285,7 @@ function Init() {
 
     getCheckedFromLS();
     renderList();
+    console.log(numberPage);
     createNumbersInPag(numberPage, numberPage+10, paganationBar);
     updateUrl(numberPage);
 }
