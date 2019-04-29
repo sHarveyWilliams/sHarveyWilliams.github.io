@@ -182,7 +182,7 @@ aside:hover{
 	max-width: 100%;
 	height: 400px;
 	max-height: 100%;
-	z-index: 50;
+	z-index: 150;
 }
 
 #exitModal{
@@ -213,7 +213,7 @@ aside:hover{
 	left:0;
 	width: 100%;
 	height: 100%;
-	z-index: 45;
+	z-index: 145;
 }
 
 .curs, .alcElm{
