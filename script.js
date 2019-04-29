@@ -4,8 +4,7 @@ let arrayList = [];
 let arrayFilterList = [];
 let objListFilter = {};
 
-function getData(numberPage) {
-    numberPage = numberPage || 1;
+function getData(numberPage=1) {
 
     url = `https://api.punkapi.com/v2/beers?per_page=8&page=${numberPage}`;
 
@@ -83,6 +82,7 @@ function renderList(numberPage) {
 
             createDOMElements(arrayList);
         })
+        .catch(error => console.error('Error:', error))
 }
 
 function clearList(listElements) {
@@ -152,7 +152,7 @@ function checkAuth() { //проверяем данные для аутентиф
         alert('Ввести все данные');
     }
     if(pass.value.length > 8 && (email.value.length > 0 || name.value.length > 0)){
-        alert('Все ОК')
+        alert('Все ОК');
         pass.value.innerHTML='';
         email.value.innerHTML='';
         name.value.innerHTML='';
@@ -279,7 +279,6 @@ function Init() {
     document.body.addEventListener('click', event => checkBoxListener(event.target));
     document.getElementById('btnBasic').addEventListener('click', checkAuth);
     paganationBar.addEventListener('click', event => createPagination(event.target, listElements, paganationBar));
-    document.getElementById('clearBtn').addEventListener('click', event => clearList(listElements));
     document.getElementById('sortByNameBtn').addEventListener('click', event => sortTitleElements(listElements, 'title'));
     document.getElementById('sortByAlcoBtn').addEventListener('click', event => sortABVElements(listElements, 'alcohol'));
     document.getElementById('showModalWindow').addEventListener('click', event => showModalWindow(listElements));

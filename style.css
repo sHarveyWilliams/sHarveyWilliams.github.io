@@ -149,7 +149,7 @@ footer{
 
 aside{
 	float: right;
-	right: -280px;
+	right: -270px;
 	position: fixed;
 	background-color: #4c4c4c;
 	z-index: 136;
@@ -166,9 +166,14 @@ aside:hover{
 
 .sortBtn{
 	position: relative;
+	border: none;
+	top: 110px;
 	width: 100%;
 	height: 50px;
 	margin-top: 15px;
+	background-color: white;
+	font-size: 16px;
+
 }
 
 #modal{
